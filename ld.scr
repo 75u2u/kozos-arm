@@ -1,0 +1,66 @@
+/*OUTPUT_FORMAT("elf32-h8300")*/
+/*OUTPUT_ARCH(h8300h)*/
+ENTRY("start")
+
+MEMORY
+{
+	ramall(rwx)	: o = 0xffbf20, l = 0x004000 /* 16KB */
+	softvec(rw)	: o = 0xffbf20, l = 0x000040 /* top of RAM */
+	ram(rwx)	: o = 0xffc020, l = 0x003f00
+	userstack(rw)	: o = 0xfff400, l = 0x000000
+	bootstack(rw)	: o = 0xffff00, l = 0x000000
+	intrstack(rw)	: o = 0xffff00, l = 0x000000 /* end of RAM */
+}
+
+SECTIONS
+{
+	.softvec : {
+		softvec = .;
+	} > softvec
+
+	.text : {
+		text_start = . ;
+		*(.text)
+		etext = . ;
+	} > ram
+
+	.rodata : {
+		rodata_start = . ;
+		*(.strings)
+		*(.rodata)
+		*(.rodata.*)
+		erodata = . ;
+	} > ram
+
+	.data : {
+		data_start = . ;
+		*(.data)
+		edata = . ;
+	} > ram
+
+	.bss : {
+		bss_start = . ;
+		*(.bss)
+		*(COMMON)
+		ebss = . ;
+	} > ram
+
+	. = ALIGN(4);
+	_end = . ;
+
+	.freearea : {
+		freearea = .;
+	} > ram
+
+	.userstack : {
+		userstack = .;
+	} > userstack
+
+	.bootstack : {
+		bootstack = .;
+	} > bootstack
+
+	.intrstack : {
+		intrstack = .;
+	} > intrstack
+}
