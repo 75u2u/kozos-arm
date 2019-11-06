@@ -1,0 +1,17 @@
+	.arm
+	.section .text
+	.global	_start
+	.type	_start,%function
+_start:
+	ldr	sp, _stack_addr
+	bl	main
+#       .global _dispatch
+#       .type   _dispatch,%function
+#_dispatch:
+#	SWI(SWI_Exit)
+#	mov	pc, lr
+
+	.align 4
+_stack_addr:
+	.long	intrstack
+

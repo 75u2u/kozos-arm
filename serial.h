@@ -13,4 +13,7 @@ int serial_intr_is_recv_enable(int index);        /* ¼õ¿®³ä¹þ¤ßÍ­¸ú¤«¡© */
 void serial_intr_recv_enable(int index);          /* ¼õ¿®³ä¹þ¤ßÍ­¸ú²½ */
 void serial_intr_recv_disable(int index);         /* ¼õ¿®³ä¹þ¤ßÌµ¸ú²½ */
 
+/*GDBã‚¨ãƒŸãƒ¥ãƒ¬ãƒ¼ã‚¿å…¥å‡ºåŠ›*/
+unsigned char sim_getc(void);
+int sim_putc(unsigned char c);
 #endif

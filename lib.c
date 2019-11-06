@@ -85,7 +85,7 @@ unsigned char getc(void)
 {
   unsigned char c = serial_recv_byte(SERIAL_DEFAULT_DEVICE);
   c = (c == '\r') ? '\n' : c;
-  putc(c); /* エコー・バック */
+//  putc(c); /* エコー・バック */
   return c;
 }
 

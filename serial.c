@@ -48,7 +48,8 @@ int serial_is_send_enable(int index)
 /* １文字送信 */
 int serial_send_byte(int index, unsigned char c)
 {
-  *UART0_DR = c;
+//  *UART0_DR = c;
+  sim_putc(c);
   return 0;
 }
 
@@ -62,7 +63,8 @@ int serial_is_recv_enable(int index)
 /* １文字受信 */
 unsigned char serial_recv_byte(int index)
 {
-  return (*UART0_DR & 0xff);
+//  return (*UART0_DR & 0xff);
+    return sim_getc();
 }
 
 /* 送信割込み有効か？ */
@@ -106,3 +108,14 @@ void serial_intr_recv_disable(int index)
   *UART0_IMSC &= ~((uint32)1 << 4);
 }
 
+/*GDBエミュレータ入出力*/
+unsigned char sim_getc()
+{
+  unsigned char c;
+  return (_read(0, &c, 1) == 1) ? c : 0;
+}
+
+int sim_putc(unsigned char c)
+{
+  return _write(1, &c, 1);
+}

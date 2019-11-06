@@ -1,5 +1,5 @@
-/*OUTPUT_FORMAT("elf32-h8300")*/
-/*OUTPUT_ARCH(h8300h)*/
+/*OUTPUT_FORMAT("")*/
+/*OUTPUT_ARCH(arm)*/
 ENTRY("start")
 
 MEMORY
